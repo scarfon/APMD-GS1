@@ -1,0 +1,19 @@
+Esta avaliação consiste na criação de um programa para gerenciamento de gastos de água para
+usuários domésticos e/ou corporativos. Nesta entrega serão cobrados os seguintes artefatos:
+
+1. Interface (3,0 pontos): crie uma interface gráfica com html e css, contendo um formulário
+de cadastro de despesas e uma tela de consulta. Você é livre para definir como serão as
+interações, mas procure criar uma boa experiência para o usuário. Serão avaliados os
+elementos utilizados, interações, animações, bem como o uso correto dos elementos
+semânticos.
+
+2. Cadastro (4,0 pontos): salve os dados digitados no formulário de cadastro no localstorage.
+Os dados devem ser salvos localmente para posterior consulta. O usuário pode excluir um
+registro cadastrado, nesse caso, o registro deve ser removido do localstorage. Os dados
+inseridos no formulário devem ser validados para evitar inconsistências.
+
+3. Consulta (3,0 pontos): o sistema deve ter a funcionalidade de busca textual e filtro por
+campo específico. Você tem liberdade para definir como a busca e filtro serão realizados
+na interface..
+
+4. Relatórios (2,0 pontos): Ofereça uma tela com os dados totalizados e análise de consumo.
