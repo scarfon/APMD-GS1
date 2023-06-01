@@ -5,24 +5,52 @@
 	box-sizing: border-box;
 	font-family: "Roboto";
 }
+header {
+	text-align: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	background-color: rgb(56, 133, 192);
+}
+.head-title {
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: xx-large;
+	color: #fff;
+}
+.footerx {
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: medium;
+	color: rgb(255, 255, 255);
+	background-color: black;
+}
 body {
-	background-color: rgb(255, 217, 195);
-	/* background-color: rgb(239, 220, 250); */
-	/* background-color: rgb(253, 168, 137); */
+	background-color: rgb(238, 244, 255);
 }
 
 h1 {
 	margin: 10px;
 }
 
-.expense-registration {
-	/* width: 30%; */
-
+.registro-gasto {
+	flex-grow: 1;
 	vertical-align: top;
 }
-
-.expense-query {
-	/* width: 70%; */
+.reg-gastos {
+	margin-top: 1em;
+	flex-grow: 3;
+	vertical-align: top;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.pesquisa-gastos {
+	flex-grow: 3;
 	vertical-align: top;
 	display: flex;
 	flex-direction: column;
@@ -30,13 +58,34 @@ h1 {
 }
 
 .forms {
+	width: 100%;
+	margin: 70px 0 50px 0;
+	height: fit-content;
 	display: flex;
 	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(3, 2fr);
+	grid-gap: 10px;
+}
+
+.grid-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.salvar-gasto-form {
+	grid-column: 3;
+}
+
+.full-width {
+	grid-column: 1 / -1;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: rgba(255, 255, 255, 0.412);
@@ -53,54 +102,104 @@ form input {
 	border: none;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
+.registro-gasto-form input:invalid {
+	border: 1px solid red;
+}
+.registro-gasto-form input:valid {
+	border: 1px solid green;
+}
 
-form button {
+form input:focus {
+	outline: none;
+}
+
+button {
 	padding: 10px 20px;
 	border-radius: 5px;
 	border: none;
-	background-color: #007bff;
+	background-color: rgb(56, 133, 192);
 	color: #fff;
 	font-size: 16px;
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
 
-form button:hover {
+button:hover {
 	background-color: #0062cc;
 }
 
 table {
 	border-collapse: collapse;
-	margin: 20px auto;
-	width: 50%;
+	margin: 25px 0;
+	font-size: 0.9em;
+	min-width: 400px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+table thead tr {
+	background-color: rgb(56, 133, 192);
+	color: #ffffff;
+	text-align: left;
 }
 
 table th,
 table td {
-	border: 1px solid #ccc;
-	padding: 8px;
-	text-align: left;
+	padding: 12px 15px;
 }
 
-table th {
-	background-color: #f2f2f2;
-	font-weight: bold;
+table td i {
+	color: rgb(56, 133, 192);
+	margin: 0 3px;
+}
+table td i:hover {
+	color: #0062cc;
 }
 
-table tr:nth-child(even) {
-	background-color: #f2f2f2;
+table tbody tr {
+	border-bottom: 1px solid rgb(211, 226, 255);
 }
-.expense-query-form {
-	flex-direction: row;
-	width: 80%;
+
+.descricao {
+	min-width: 300px;
+}
+
+table tbody tr:nth-of-type(even) {
+	background-color: rgb(220, 232, 255);
+}
+
+table tbody tr:last-of-type {
+	border-bottom: 3px solid rgb(56, 133, 192);
+}
+
+.pesquisa-gastos-form {
+	display: flex;
+	gap: 20px;
 }
 
 form select {
-	margin-top: 5px;
 	padding: 10px;
 	border-radius: 5px;
 	border: none;
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+.relatorios {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 20px;
+}
+.lado {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 30px;
+}
+
+canvas {
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
 footer {
@@ -108,5 +207,50 @@ footer {
 	bottom: 0;
 	width: 100%;
 	text-align: center;
-	background-color: #fff;
+	color: #fff;
+	background-color: rgb(0, 0, 0);
+}
+
+.oculta {
+	display: none;
+}
+
+@media (max-width: 768px) {
+	.grid-container {
+		grid-template-columns: repeat(2, 2fr);
+	}
+	.grid-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.salvar-gasto-form {
+		grid-column: 1 / -1;
+	}
+	.descricao {
+		min-width: auto;
+	}
+	.lado {
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+}
+
+@media (max-width: 470px) {
+	.grid-container {
+		grid-template-columns: repeat(1, 2fr);
+	}
+	.pesquisa-gastos-form {
+		flex-direction: column;
+		gap: 5px;
+	}
+	.grid-item {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.salvar-gasto-form {
+		grid-column: 1 / -1;
+	}
 }

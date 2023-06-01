@@ -7,81 +7,135 @@
 		<link rel="stylesheet" href="./assets/css/style.css" />
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
 		/>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	</head>
+
 	<body>
 		<header>
-			<h1>Meus Gastos de Agua</h1>
+			<h1 class="head-title">MEUS GASTOS DE AGUA</h1>
 		</header>
-		<section class="forms">
-			<div class="expense-registration">
-				<h1>Registro de Gastos</h1>
-				<form class="expense-registration-form">
-					<label for="date">Data:</label>
-					<input type="date" id="date" name="date" required />
 
-					<label for="type">Tipo:</label>
-					<select id="type" name="type">
+		<section class="forms">
+			<div class="registro-gasto">
+				<h1 class="reg-gastos">Registro de Gastos</h1>
+				<form class="registro-gasto-form">
+					<div class="grid-container">
+						<div class="grid-item">
+							<label for="data-cadastro">Data:</label>
+							<input
+								type="date"
+								id="data-cadastro"
+								name="data-cadastro"
+								required
+							/>
+						</div>
+						<div class="grid-item">
+							<label for="tipo-cadastro">Tipo:</label>
+							<select id="tipo-cadastro" name="tipo-cadastro">
+								<option value="domestico">Domestico</option>
+								<option value="corporativo">Corporativo</option>
+							</select>
+						</div>
+						<div class="grid-item">
+							<label for="valor-cadastro">Valor:</label>
+							<input
+								type="number"
+								id="valor-cadastro"
+								name="valor-cadastro"
+								required
+								step="0.01"
+								oninput="validarNumero(this)"
+							/>
+						</div>
+						<div class="grid-item">
+							<label for="consumo-cadastro">Consumo(m³):</label>
+							<input
+								type="number"
+								id="consumo-cadastro"
+								name="consumo-cadastro"
+								required
+								oninput="validarNumero(this)"
+							/>
+						</div>
+						<div class="grid-item full-width">
+							<label for="descricao-cadastro">Descrição:</label>
+							<input
+								type="text"
+								id="descricao-cadastro"
+								name="descricao-cadastro"
+								required
+							/>
+						</div>
+						<div class="grid-item salvar-gasto-form">
+							<button id="salvarbtn" type="submit">Salvar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="pesquisa-gastos">
+				<h1>Pesquisa de Gastos</h1>
+				<form class="pesquisa-gastos-form">
+					<label for="descricao-filtro">Descrição:</label>
+					<input type="text" id="descricao-filtro" name="descricao-filtro" />
+					<label for="tipo-filtro">Tipo:</label>
+					<select id="tipo-filtro" name="tipo-filtro">
+						<option value="todos" selected>Todos</option>
 						<option value="domestico">Domestico</option>
 						<option value="corporativo">Corporativo</option>
 					</select>
-
-					<label for="description">Descrição:</label>
-					<input type="text" id="description" name="description" required />
-
-					<label for="value">Valor:</label>
-					<input type="number" id="value" name="value" required step="0.01" />
-
-					<button type="submit">Salvar</button>
+					<button id="valor-filtro">Valor</button>
+					<button id="data-filtro">Data</button>
+					<button id="consumo-filtro">Consumo</button>
 				</form>
-			</div>
-
-			<div class="expense-query">
-				<h1>Pesquisa de Gastos</h1>
-				<form class="expense-query-form">
-					<label for="search">Search:</label>
-					<input type="text" id="search" name="search" required />
-
-					<label for="search-type">Search Type:</label>
-					<select id="search-type" name="search-type">
-						<option value="description">Description</option>
-						<option value="date">Date</option>
-						<option value="type">Type</option>
-					</select>
-
-					<button type="submit">Search</button>
-				</form>
-
-				<table>
+				<div id="tabela-info">
+					<h3>Não ha despesas Cadastradas</h3>
+				</div>
+				<table id="tabela" class="oculta">
 					<thead>
 						<tr>
 							<th>Data</th>
-							<th>Descrição</th>
+							<th class="descricao">Descrição</th>
 							<th>Tipo</th>
 							<th>Valor</th>
+							<th>Consumo</th>
+							<th>Ações</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>01/01/2022</td>
-							<td>Despesa 1</td>
-							<td>Doméstico</td>
-							<td>R$ 100,00</td>
-						</tr>
-						<tr>
-							<td>02/01/2022</td>
-							<td>Despesa 2</td>
-							<td>Corporativo</td>
-							<td>R$ 50,00</td>
-						</tr>
-					</tbody>
+					<tbody id="tabela-corpo"></tbody>
 				</table>
 			</div>
+			<div class="relatorios">
+				<h1 id="relatorio">Relatório</h1>
+				<div class="lado">
+					<table id="tabela-totais">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Consumo</th>
+								<th>Valor</th>
+								<th>Valor/Consumo</th>
+							</tr>
+						</thead>
+						<tbody id="tabela-corpo-totais"></tbody>
+					</table>
+					<div class="graficos">
+						<div>
+							<canvas id="grafico-consumo"></canvas>
+						</div>
+						<div>
+							<canvas id="grafico-valor"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
-
-		<footer>2023</footer>
+		<footer class="footerx">2023</footer>
 
 		<script src="./assets/js/script.js"></script>
 	</body>
